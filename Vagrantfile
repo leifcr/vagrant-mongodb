@@ -23,7 +23,7 @@ Vagrant::Config.run do |config|
   config.vm.define :primaryauth do |primaryauth|
     # Configure the hostname and IP
     # You should probably update your local /etc/hosts with this info
-    primaryauth.vm.network :hostonly, "172.16.1.10"
+    primaryauth.vm.network :hostonly, "10.10.10.30"
     primaryauth.vm.host_name = "primaryauth.rs.local"
 
     # The ReplicaSet name, and content of the keyfile if we want auth
@@ -38,7 +38,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.define :secondaryauth do |secondaryauth|
-    secondaryauth.vm.network :hostonly, "172.16.1.11"
+    secondaryauth.vm.network :hostonly, "10.10.10.31"
     secondaryauth.vm.host_name = "secondaryauth.rs.local"
 
     secondaryauth.mongo.rs       = "RSAuth"
@@ -49,7 +49,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.define :tertiaryauth do |tertiaryauth|
-    tertiaryauth.vm.network :hostonly, "172.16.1.12"
+    tertiaryauth.vm.network :hostonly, "10.10.10.32"
     tertiaryauth.vm.host_name = "tertiaryauth.rs.local"
 
     tertiaryauth.mongo.rs       = "RSAuth"
@@ -60,19 +60,9 @@ Vagrant::Config.run do |config|
     tertiaryauth.mongo.arbiter = true
   end
 
-
-  config.vm.define :standaloneauth do |standaloneauth|
-    standaloneauth.vm.network :hostonly, "172.16.2.10"
-    standaloneauth.vm.host_name = "standaloneauth.local"
-
-    standaloneauth.mongo.auth     = "true"
-    standaloneauth.mongo.id       = 42
-  end
-
-
 ### And now without authentication
   config.vm.define :primary do |primary|
-    primary.vm.network :hostonly, "172.16.3.10"
+    primary.vm.network :hostonly, "10.10.10.40"
     primary.vm.host_name = "primary.rs.local"
 
     primary.mongo.rs       = "RS"
@@ -83,7 +73,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.define :secondary do |secondary|
-    secondary.vm.network :hostonly, "172.16.3.11"
+    secondary.vm.network :hostonly, "10.10.10.41"
     secondary.vm.host_name = "secondary.rs.local"
 
     secondary.mongo.rs       = "RS"
@@ -93,7 +83,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.define :tertiary do |tertiary|
-    tertiary.vm.network :hostonly, "172.16.3.12"
+    tertiary.vm.network :hostonly, "10.10.10.42"
     tertiary.vm.host_name = "tertiary.rs.local"
 
     tertiary.mongo.rs       = "RS"
@@ -104,12 +94,19 @@ Vagrant::Config.run do |config|
 
 
   config.vm.define :standalone do |standalone|
-    standalone.vm.network :hostonly, "172.16.4.10"
+    standalone.vm.network :hostonly, "10.10.10.50"
     standalone.vm.host_name = "standalone.local"
 
     standalone.mongo.id       = 42
   end
 
+  config.vm.define :standaloneauth do |standaloneauth|
+    standaloneauth.vm.network :hostonly, "10.10.10.51"
+    standaloneauth.vm.host_name = "standaloneauth.local"
+
+    standaloneauth.mongo.auth     = "true"
+    standaloneauth.mongo.id       = 42
+  end
 
 end
 
