@@ -1,4 +1,3 @@
-# command => "add-apt-repository 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen'",
 class mongodb {
     package { "python-software-properties":
         ensure => installed,
@@ -6,7 +5,8 @@ class mongodb {
 
     exec { "apt-repo-10gen":
         path => "/bin:/usr/bin",
-        command => "echo deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen \ >> /etc/apt/sources.list.d/mongodb.list",
+        # command => "add-apt-repository 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen'",
+        command => 'echo deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen >> /etc/apt/sources.list.d/mongodb.list',
         unless => "cat /etc/apt/sources.list | grep 10gen | grep downloads-distro",
         require => Package["python-software-properties"],
     }
